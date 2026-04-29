@@ -1,0 +1,41 @@
+name: Build APK DAYZ BR
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 11
+
+      - name: Instalar dependencias
+        run: yarn install --frozen-lockfile
+
+      - name: Permissao Gradle
+        run: chmod +x android/gradlew
+
+      - name: Gerar APK Release
+        run: cd android && ./gradlew assembleRelease
+
+      - name: Enviar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: DAYZ-BR-APK
+          path: android/app/build/outputs/apk/release/*.apk
