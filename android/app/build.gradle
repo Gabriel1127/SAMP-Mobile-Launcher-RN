@@ -27,16 +27,18 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "com.dayzbr.launcher"
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0.0"
-        multiDexEnabled true
+    applicationId "com.dayzbr.launcher"
+    minSdkVersion 21
+    targetSdkVersion 28
+    versionCode 1
+    versionName "1.0.0"
+    multiDexEnabled true
 
-        ndk {
-            abiFilters "armeabi-v7a"
-        }
+    buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", "false"
+
+    ndk {
+        abiFilters "armeabi-v7a"
+    }
     }
 
     signingConfigs {
